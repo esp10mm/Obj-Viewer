@@ -28,13 +28,20 @@
 
   <canvas id="canvas" width="600" height="600"></canvas>
 
-  <script src="./readObj.js" charset="utf-8"></script>
+  <script src="./objReader.js" charset="utf-8"></script>
   <script src="./3d.js" charset="utf-8"></script>
   <script src="./myCanvas.js" charset="utf-8"></script>
 
   <script charset="utf-8">
 
     var canvas = new myCanvas('canvas');
+    var objReader = new objReader();
+
+    objReader.objLoadEnd(function(vertices, faces){
+      var obj = new object(vertices, faces);
+    })
+
+    document.getElementById('files').addEventListener('change', objReader.handleFileSelect, false);
 
   </script>
 
