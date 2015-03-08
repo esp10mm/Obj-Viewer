@@ -1,13 +1,11 @@
 function myCanvas(id) {
   var canvas = document.getElementById(id);
   var ctx = canvas.getContext('2d');
-  var rect = {};
   var drag = false;
 
-  this.mouseX = 0;
-  this.mouseY = 0;
-  this.pmouseX = 0;
-  this.pmouseY = 0;
+  var mouseX = 0;
+  var mouseY = 0;
+
 
   function mouseDown(e) {
     drag = true;
@@ -20,17 +18,27 @@ function myCanvas(id) {
 
   function mouseMove(e) {
     if (drag) {
-      this.pmouseX = this.mouseX;
-      this.pmouseY = this.mouseY;
-      this.mouseX = e.pageX;
-      this.mouseY = e.pageY;
+
+      dragListener(e.pageX-mouseX, e.pageY-mouseY);
+
+      mouseX = e.pageX;
+      mouseY = e.pageY;
+
     }
   }
+
+  function dragListener(xd, yd) {
+    console.log(xd);
+  };
 
   this.init = function() {
     canvas.addEventListener('mousedown', mouseDown, false);
     canvas.addEventListener('mouseup', mouseUp, false);
     canvas.addEventListener('mousemove', mouseMove, false);
+  }
+
+  this.setDragListener = function(func) {
+    dragListener = func;
   }
 
   this.init();
