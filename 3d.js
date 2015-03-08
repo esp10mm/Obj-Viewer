@@ -3,7 +3,57 @@ function object(vertices, faces) {
   this.vertices = vertices;
   this.faces = faces;
 
-  this.disp = function (scale) {
+  // Rotate shape around the z-axis
+  this.rotateZ3D = function(theta) {
+    theta = Math.PI * theta/180;
+
+    var sin_t = Math.sin(theta);
+    var cos_t = Math.cos(theta);
+
+    for (var n=0; n<vertices.length; n++) {
+        var vertex = vertices[n];
+        var x = vertex[0];
+        var y = vertex[1];
+        vertex[0] = x * cos_t - y * sin_t;
+        vertex[1] = y * cos_t + x * sin_t;
+    }
+  };
+
+  this.rotateY3D = function(theta) {
+    theta = Math.PI * theta/180;
+
+    var sin_t = Math.sin(theta);
+    var cos_t = Math.cos(theta);
+
+    for (var n=0; n<vertices.length; n++) {
+        var vertex = vertices[n];
+        var x = vertex[0];
+        var z = vertex[2];
+        vertex[0] = x * cos_t - z * sin_t;
+        vertex[2] = z * cos_t + x * sin_t;
+    }
+  };
+
+  this.rotateX3D = function(theta) {
+    theta = Math.PI * theta/180;
+
+    var sin_t = Math.sin(theta);
+    var cos_t = Math.cos(theta);
+
+    for (var n=0; n<vertices.length; n++) {
+        var vertex = vertices[n];
+        var y = vertex[1];
+        var z = vertex[2];
+        vertex[1] = y * cos_t - z * sin_t;
+        vertex[2] = z * cos_t + y * sin_t;
+    }
+  };
+
+  this.rotateZ3D(30);
+  this.rotateY3D(30);
+  this.rotateX3D(30);
+
+  this.draw = function (scale) {
     var canvas = document.getElementById('canvas');
     var w = canvas.width;
     var h = canvas.height;
@@ -37,12 +87,14 @@ function object(vertices, faces) {
 
       ctx.closePath();
       ctx.stroke();
-      
+
     }
 
     ctx.restore();
 
   }
+
+  this.draw(100);
 
 
 }
