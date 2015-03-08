@@ -39,6 +39,13 @@
 
     objReader.objLoadEnd(function(vertices, faces){
       var obj = new object(vertices, faces);
+
+      canvas.setDragListener(function(xd, yd){
+        obj.rotateX3D(yd);
+        obj.rotateY3D(xd);
+        obj.draw(100);
+      })
+
     })
 
     document.getElementById('files').addEventListener('change', objReader.handleFileSelect, false);

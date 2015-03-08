@@ -55,6 +55,7 @@ function object(vertices, faces) {
 
   this.draw = function (scale) {
     var canvas = document.getElementById('canvas');
+
     var w = canvas.width;
     var h = canvas.height;
 
@@ -62,10 +63,9 @@ function object(vertices, faces) {
 
     ctx.save();
 
-    ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
+    ctx.clearRect ( 0 , 0 , w, h);
 
     ctx.translate(w/2, h/2);
-
 
     for(var i = 0; i < faces.length; i++) {
 
@@ -95,6 +95,5 @@ function object(vertices, faces) {
   }
 
   this.draw(100);
-
 
 }
