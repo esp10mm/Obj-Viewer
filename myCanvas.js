@@ -27,14 +27,13 @@ function myCanvas(id) {
     }
   }
 
-  function dragListener(xd, yd) {
-    console.log(xd);
-  };
+  function dragListener(xd, yd) {};
 
   this.init = function() {
     canvas.addEventListener('mousedown', mouseDown, false);
     canvas.addEventListener('mouseup', mouseUp, false);
     canvas.addEventListener('mousemove', mouseMove, false);
+    canvas.addEventListener('mouseout', mouseUp, false);
   }
 
   this.setDragListener = function(func) {
