@@ -8,36 +8,39 @@ function object(vertices, faces) {
     var w = canvas.width;
     var h = canvas.height;
 
-    if (canvas.getContext) {
-      var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
 
-      ctx.translate(w/2, h/2);
+    ctx.save();
 
+    ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
 
-      for(var i = 0; i < faces.length; i++) {
-
-        ctx.beginPath();
+    ctx.translate(w/2, h/2);
 
 
-        for(var j = 0; j < faces[i].length; j++) {
-          var vertex = vertices[parseInt(faces[i][j]) - 1];
-          var next;
+    for(var i = 0; i < faces.length; i++) {
 
-          if(j == faces[i].length-1)
-            next = vertices[parseInt(faces[i][0]) - 1];
-          else
-            next = vertices[parseInt(faces[i][j+1]) - 1];
+      ctx.beginPath();
 
-          ctx.moveTo(vertex[0] * scale, vertex[1] * scale);
-          ctx.lineTo(next[0] * scale, next[1] * scale);
+      for(var j = 0; j < faces[i].length; j++) {
+        var vertex = vertices[parseInt(faces[i][j]) - 1];
+        var next;
 
-        }
+        if(j == faces[i].length-1)
+          next = vertices[parseInt(faces[i][0]) - 1];
+        else
+          next = vertices[parseInt(faces[i][j+1]) - 1];
 
-        ctx.closePath();
-        ctx.stroke();
+        ctx.moveTo(vertex[0] * scale, vertex[1] * scale);
+        ctx.lineTo(next[0] * scale, next[1] * scale);
+
       }
 
+      ctx.closePath();
+      ctx.stroke();
+      
     }
+
+    ctx.restore();
 
   }
 
