@@ -1,56 +1,90 @@
 <!DOCTYPE html>
-<style>
-  #progress_bar {
-    margin: 10px 0;
-    padding: 3px;
-    border: 1px solid #000;
-    font-size: 14px;
-    clear: both;
-    opacity: 0;
-    -moz-transition: opacity 1s linear;
-    -o-transition: opacity 1s linear;
-    -webkit-transition: opacity 1s linear;
-  }
-  #progress_bar.loading {
-    opacity: 1.0;
-  }
-  #progress_bar .percent {
-    background-color: #99ccff;
-    height: auto;
-    width: 0;
-  }
-</style>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+  </head>
 
-<body>
 
-  <input type="file" id="files" name="file" />
-  <div id="progress_bar"><div class="percent">0%</div></div>
+  <body>
 
-  <canvas id="canvas" width="600" height="600"></canvas>
+    <!-- <input type="file" id="files" name="file" /> -->
+    <!-- <div id="progress_bar"><div class="percent">0%</div></div> -->
 
-  <script src="./objReader.js" charset="utf-8"></script>
-  <script src="./3d.js" charset="utf-8"></script>
-  <script src="./myCanvas.js" charset="utf-8"></script>
+    <script src="./js/jquery-2.1.3.min.js" charset="utf-8"></script>
+    <script src="./js/math.min.js" charset="utf-8"></script>
+    <script src="./js/semantic.min.js" charset="utf-8"></script>
 
-  <script charset="utf-8">
+    <script src="./objReader.js" charset="utf-8"></script>
+    <script src="./3d.js" charset="utf-8"></script>
+    <script src="./js/myUI.js" charset="utf-8"></script>
+    <script src="./myCanvas.js" charset="utf-8"></script>
 
-    var canvas = new myCanvas('canvas');
-    var objReader = new objReader();
+    <div class="ui main basic segment">
+      <div class="ui main menu">
+        <a class="file item" onclick="activeItem('file')">
+          <i class="file icon"></i> File
+        </a>
+        <a class="item">
+          <i class="photo icon"></i> Albums
+        </a>
+        <a class="item">
+          <i class="globe icon"></i> Browse
+        </a>
+      </div>
 
-    objReader.objLoadEnd(function(vertices, faces){
-      var obj = new object(vertices, faces);
+      <div class="canvas wrapper">
+        <canvas id="canvas"></canvas>
+      </div>
 
-      canvas.setDragListener(function(xd, yd){
-        obj.rotateX3D(yd);
-        obj.rotateY3D(xd);
-        obj.draw(100);
+      <div class="ui file panel secondary inverted compact segment">
+        <div class="ui panelTitle basic segment">
+          <div class="ui small yellow header">
+            File
+          </div>
+        </div>
+        <i class="panel red remove icon"></i>
+        <br>
+        <div class="ui tertiary inverted panelContent segment">
+          <p>
+            <form class="ui form">
+              Select File:&nbsp;&nbsp;
+              <label class="ui icon button" onclick="choosefile()">
+                    <i(class="file icon")></i>
+                    Open
+              </label>
+              <input type="file" id="file" name="file" style="display:none"/>
+            </form>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script charset="utf-8">
+      var objReader = new objReader();
+      var canvas = new myCanvas('canvas');
+      // var space = new space('canvas');
+
+      objReader.objLoadEnd(function(vertices, faces){
+        var obj = new object(vertices, faces);
+
+
+        // canvas.setDragListener(function(xd, yd){
+        //
+        //   obj.rotateY3D(xd);
+        //   obj.rotateX3D(-yd);
+        //   obj.draw(100);
+        // })
+
       })
+      // var matrix = math.matrix([[7, 1], [-2, 3]]);
+      // math.square(matrix);
+      // console.log(matrix.valueOf())
 
-    })
+      document.getElementById('file').addEventListener('change', objReader.handleFileSelect, false);
 
-    document.getElementById('files').addEventListener('change', objReader.handleFileSelect, false);
-
-  </script>
-
-
-</body>
+    </script>
+  </body>
+</html>
