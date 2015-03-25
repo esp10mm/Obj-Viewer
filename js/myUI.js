@@ -1,5 +1,5 @@
 $('.panelTitle.segment').on('mousedown', function(e) {
-
+  
   $(this).parent().addClass('draggable').parents().on('mousemove', function(e) {
     $('.draggable').offset({
       top: e.pageY - $('.draggable').outerHeight() / 2,
@@ -23,5 +23,5 @@ function activeItem(target) {
 }
 
 function choosefile() {
-  document.getElementById('file').click(); 
+  document.getElementById('file').click();
 }

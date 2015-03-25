@@ -15,7 +15,7 @@
     <div class="ui main basic segment">
       <div class="ui main menu">
         <a class="file item" onclick="activeItem('file')">
-          <i class="file icon"></i> File
+          <i class="sign in icon"></i> Import
         </a>
         <a class="item">
           <i class="photo icon"></i> Albums
@@ -32,22 +32,23 @@
       <div class="ui file panel secondary inverted compact segment">
         <div class="ui panelTitle basic segment">
           <div class="ui small yellow header">
-            File
+            Import
           </div>
         </div>
         <i class="panel red remove icon"></i>
         <br>
         <div class="ui tertiary inverted panelContent segment">
-          <p>
-            <form class="ui form">
-              Select File:&nbsp;&nbsp;
-              <label class="ui icon button" onclick="choosefile()">
-                    <i(class="file icon")></i>
-                    Open
-              </label>
-              <input type="file" id="file" name="file" style="display:none"/>
-            </form>
-          </p>
+          <h3 class="ui yellow header">
+            From File:
+          </h3>
+          <form class="ui form">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <label class="ui icon button" onclick="choosefile()">
+                  <i(class="file icon")></i>
+                  Open
+            </label>
+            <input type="file" id="file" name="file" style="display:none"/>
+          </form>
         </div>
       </div>
 
@@ -65,23 +66,15 @@
     <script charset="utf-8">
       var objReader = new objReader();
       var canvas = new myCanvas('canvas');
-      // var space = new space('canvas');
+      var space = new space('canvas');
+
+      canvas.setDragListener(function(xd, yd){
+        space.moveCam(xd, yd);
+      })
 
       objReader.objLoadEnd(function(vertices, faces){
-        var obj = new object(vertices, faces);
-
-
-        // canvas.setDragListener(function(xd, yd){
-        //
-        //   obj.rotateY3D(xd);
-        //   obj.rotateX3D(-yd);
-        //   obj.draw(5);
-        // })
-
+        space.importObject(vertices, faces);
       })
-      // var matrix = math.matrix([[7, 1], [-2, 3]]);
-      // math.square(matrix);
-      // console.log(matrix.valueOf())
 
       document.getElementById('file').addEventListener('change', objReader.handleFileSelect, false);
 

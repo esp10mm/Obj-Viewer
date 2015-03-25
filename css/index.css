@@ -64,7 +64,6 @@ body {
   z-index:6;
   padding:1px;
   margin:0px;
-  display:none;
 }
 
 .ui.panelTitle.segment {
@@ -76,6 +75,7 @@ body {
 
 .ui.panelContent.segment {
   margin:5px;
+  padding:10px;
 }
 
 .panel.icon {
