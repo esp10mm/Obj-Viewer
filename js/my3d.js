@@ -143,7 +143,7 @@ function space(canvas_id) {
   this.importObject = function(vertices, faces, name, color) {
     var object = {};
 
-    name = typeof name !== 'undefined' ? name : 'object'+objects.length;
+    name = typeof name !== 'undefined' ? name : 'object'+(objects.length-3);
     color = typeof color !== 'undefined' ? color : null;
 
     for(var i=0; i<vertices.length; i++)
@@ -195,6 +195,17 @@ function space(canvas_id) {
       upv = math.multiply(-1, upv);
 
     viewing();
+  }
+
+  this.getObjects = function() {
+    return objects.slice(3,objects.length);
+  }
+
+  this.removeObject = function(index) {
+    index = parseInt(index) + 3;
+    objects.splice(index, 1);
+    viewing();
+    return objects.slice(3,objects.length);
   }
 
 

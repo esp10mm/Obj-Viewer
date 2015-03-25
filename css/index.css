@@ -82,3 +82,7 @@ body {
   float: right;
   margin: 4px;
 }
+
+.objects.operate {
+  display:none;
+}
