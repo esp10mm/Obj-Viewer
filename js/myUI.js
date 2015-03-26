@@ -1,3 +1,4 @@
+var transTabOrigin = $('.trans.panel').html();
 
 initUI();
 
@@ -22,7 +23,7 @@ function initUI() {
   })
 
   $('.objects.remove.button').on('click', function(){
-    var index = $('.dropdown').dropdown('get value')[0];
+    var index = $('.dropdown .value').val();
     var objects = space.removeObject(index);
 
     $('.dropdown').dropdown('clear');
@@ -30,6 +31,67 @@ function initUI() {
 
     updateUI(objects);
   })
+
+  $('.translation.tab').addClass('active');
+  $('.translation.item').addClass('active');
+  $('.trans.menu .item').tab();
+  transTabInit();
+
+  $('.objects.trans.button').on('click', function(){
+    $('.trans.panel').show();
+    transButtonClick();
+  })
+
+  $('.dropdown').on('change', function(){
+    transTabClear('translation');
+    transButtonClick();
+  })
+
+}
+
+function transButtonClick() {
+  var objectText = $('.dropdown .text').text();
+  var headerText = '<i class="tiny yellow wizard icon"></i>'+objectText;
+  $('.selectedObj.header').html(headerText);
+
+  var objectIndex = $('.dropdown .value').val();
+  $('.trans.panel').removeClass('disabled');
+}
+
+function transTabInit() {
+  $('.translation.apply').on('click', function(){
+    var vx = $('.translation.x').val();
+    var vy = $('.translation.y').val();
+    var vz = $('.translation.z').val();
+
+    if(!parseFloat(vx))
+      vx = 0;
+    else
+      vx = parseFloat(vx);
+    if(!parseFloat(vy))
+      vy = 0;
+    else
+      vy = parseFloat(vy);
+    if(!parseFloat(vz))
+      vz = 0;
+    else
+      vz = parseFloat(vz);
+
+    var tar = $('.dropdown .value').val();
+    if(tar.length > 0){
+      space.objectTranslation(tar, vx, vy, vz);
+    }
+
+    transTabClear('translation');
+  })
+}
+
+function transTabClear(tabname) {
+  $('.trans.panel').html(transTabOrigin);
+  $('.tab.'+tabname).addClass('active');
+  $('.item.'+tabname).addClass('active');
+  $('.trans.menu .item').tab();
+  transTabInit();
 }
 
 function activeItem(target) {
@@ -56,7 +118,7 @@ function updateUI(objects) {
 
   $('.dropdown').dropdown();
   if(objects.length > 0){
-    if($('.dropdown').dropdown('get value')[0].length != 0){
+    if($('.dropdown .value').val().length != 0){
       $('.objects.operate').show();
     }
     else {
@@ -64,6 +126,9 @@ function updateUI(objects) {
       $('.objects.operate').show();
     }
   }
-
+  else {
+    $('.trans.panel').addClass('disabled');
+    $('.selectedObj').html('<i class="tiny yellow wizard icon"></i>No Object Selected');
+  }
 
 }

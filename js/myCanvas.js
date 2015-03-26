@@ -30,6 +30,8 @@ function myCanvas(id) {
 
   function dragListener(xd, yd) {};
 
+  function wheelListener(dir) {};
+
   function dottedLineInit(){
     var CP = window.CanvasRenderingContext2D && CanvasRenderingContext2D.prototype;
     if (CP && CP.lineTo){
@@ -57,6 +59,11 @@ function myCanvas(id) {
     }
   }
 
+  function mouseWheeling(e) {
+    var scrollDirection = e.wheelDelta || -1 * e.detail;
+    wheelListener(scrollDirection);
+  }
+
   this.init = function() {
     canvas.setAttribute("width", canvas.offsetWidth);
     canvas.setAttribute("height", canvas.offsetHeight);
@@ -66,11 +73,17 @@ function myCanvas(id) {
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.addEventListener('mouseout', mouseUp, false);
 
+    canvas.addEventListener("mousewheel", mouseWheeling, false);
+
     dottedLineInit();
   }
 
   this.setDragListener = function(func) {
     dragListener = func;
+  }
+
+  this.setWheelListener = function(func) {
+    wheelListener = func;
   }
 
   this.init();

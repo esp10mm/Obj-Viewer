@@ -64,6 +64,11 @@ body {
   z-index:6;
   padding:1px;
   margin:0px;
+  float:left;
+}
+
+.ui.trans.segment {
+  float:right;
 }
 
 .ui.panelTitle.segment {
@@ -85,4 +90,16 @@ body {
 
 .objects.operate {
   display:none;
+}
+
+.ui.tabular.menu .item  {
+  color: #FFFFFF;
+}
+
+.ui.tabular.menu .item:hover  {
+  color: #FFFFFF;
+}
+
+.ui.tabular.menu .active.item  {
+  color: #F2C61F;
 }

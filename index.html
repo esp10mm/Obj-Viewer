@@ -12,7 +12,10 @@
     <!-- <input type="file" id="files" name="file" /> -->
     <!-- <div id="progress_bar"><div class="percent">0%</div></div> -->
 
+
+    <!-- Main Segment -->
     <div class="ui main basic segment">
+      <!-- Manu Bar -->
       <div class="ui main menu">
         <a class="file item" onclick="activeItem('file')">
           <i class="sign in icon"></i> Import
@@ -20,15 +23,14 @@
         <a class="item" onclick="activeItem('objects')">
           <i class="cubes icon"></i> Objects
         </a>
-        <a class="item">
-          <i class="globe icon"></i> Browse
-        </a>
       </div>
 
+      <!-- Canvas -->
       <div class="canvas wrapper">
         <canvas id="canvas"></canvas>
       </div>
 
+      <!-- Import Panel -->
       <div class="ui file panel secondary inverted compact segment">
         <div class="ui panelTitle basic segment">
           <div class="ui small yellow header">
@@ -53,6 +55,76 @@
         </div>
       </div>
 
+      <!-- Transformation Panel -->
+      <div class="ui trans panel secondary inverted compact disabled segment">
+        <div class="ui panelTitle basic segment">
+          <div class="ui small yellow header">
+            Transformation
+          </div>
+        </div>
+        <i class="panel red remove icon"></i>
+        <br>
+        <div class="ui tertiary inverted panelContent segment">
+          <h3 class="ui selectedObj header">
+            <i class="tiny yellow wizard icon"></i>
+            No Object Selected
+          </h3>
+
+          <div class="ui top attached tabular trans menu">
+              <div class="translation trans item" data-tab="Translation">Translation</div>
+              <div class="rotate trans item" data-tab="Rotate">Rotate</div>
+              <div class="trans item" data-tab="Scale">Scale</div>
+              <div class="trans item" data-tab="Shear">Shear</div>
+              <div class="trans item" data-tab="Reflection">Reflection</div>
+          </div>
+
+          <div class="ui bottom attached translation tab segment" data-tab="Translation">
+            <h2 class="ui red header">X &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation x">
+              </div>
+            </h2>
+            <h2 class="ui blue header">Y &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation y">
+              </div>
+            </h2>
+            <h2 class="ui green header">Z &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation z">
+              </div>
+            </h2>
+            <div class="ui teal translation apply button">
+              Apply
+            </div>
+          </div>
+
+          <div class="ui bottom attached rotate tab segment" data-tab="Rotate">
+              <p></p>
+              <p></p>
+          </div>
+
+          <div class="ui bottom attached tab segment" data-tab="Scale">
+              <p></p>
+              <p></p>
+          </div>
+
+          <div class="ui bottom attached tab segment" data-tab="Shear">
+              <p></p>
+              <p></p>
+          </div>
+
+          <div class="ui bottom attached tab segment" data-tab="Reflection">
+              <p></p>
+              <p></p>
+          </div>
+
+        </div>
+      </div>
+
+      <br><br><br><br><br><br><br>
+
+      <!-- Objects Panel -->
       <div class="ui objects panel secondary inverted compact segment">
         <div class="ui panelTitle basic segment">
           <div class="ui small yellow header">
@@ -65,7 +137,7 @@
 
           <i class="big yellow cube icon"></i>
           <div class="ui selection dropdown">
-            <input type="hidden" name="selectedObj">
+            <input type="hidden" class="value">
             <div class="default text">Select An Object</div>
             <i class="dropdown icon"></i>
             <div class="objects menu"></div>
@@ -76,8 +148,12 @@
               <i class="trash outline icon"></i>
               Remove
             </div>
+            <br><br>
+            <div class="ui green objects trans button">
+              <i class="wizard icon"></i>
+              Transformation
+            </div>
           </div>
-
         </div>
       </div>
 
@@ -98,7 +174,11 @@
       var space = new space('canvas');
 
       canvas.setDragListener(function(xd, yd){
-        space.moveCam(xd, yd);
+        space.rotateCam(xd, yd);
+      })
+
+      canvas.setWheelListener(function(dir){
+        space.moveCam(dir/100);
       })
 
       var objects = []

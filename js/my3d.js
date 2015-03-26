@@ -2,10 +2,11 @@ function space(canvas_id) {
 
   var origin = [0, 0, 0];
   var objects = [];
+  var objCount = -3;
 
-  var camera = [0, 0, -3];
+  var camera = [3, 3, 3];
   // var camera = [0, 3, 0];
-  var upv = [0, 1, 0];
+  var upv = [0, -1, 0];
 
   var fov = 60;
   var aspect = 1;
@@ -143,7 +144,7 @@ function space(canvas_id) {
   this.importObject = function(vertices, faces, name, color) {
     var object = {};
 
-    name = typeof name !== 'undefined' ? name : 'object'+(objects.length-3);
+    name = typeof name !== 'undefined' ? name : 'object'+(objCount);
     color = typeof color !== 'undefined' ? color : null;
 
     for(var i=0; i<vertices.length; i++)
@@ -163,11 +164,12 @@ function space(canvas_id) {
     object.name = name;
 
     objects.push(object);
+    objCount += 1;
     // projection();
     viewing();
   }
 
-  this.moveCam = function(xd, yd) {
+  this.rotateCam = function(xd, yd) {
     var vm = viewMatrix(origin);
     var iv = math.inv(vm);
 
@@ -191,9 +193,26 @@ function space(canvas_id) {
     // console.log(after.valueOf().slice(0, 3));
     camera = after.valueOf().slice(0, 3);
 
-    if(Math.abs(camera[2])<0.03)
+
+    if(Math.abs(matrixNorm(camera)[2])<0.01)
       upv = math.multiply(-1, upv);
 
+    viewing();
+  }
+
+  this.moveCam = function(dir) {
+    dir = dir * -1;
+    var u = matrixNorm(camera);
+    var backup = camera;
+
+    u = math.multiply(u, Math.abs(dir));
+    if(dir>0)
+      camera = math.add(u, camera);
+    else
+      camera = math.subtract(camera, u);
+
+    if(!math.deepEqual(matrixNorm(camera), matrixNorm(backup)))
+      camera = backup;
     viewing();
   }
 
@@ -208,6 +227,21 @@ function space(canvas_id) {
     return objects.slice(3,objects.length);
   }
 
+  this.objectTranslation = function(tar, x, y, z){
+    tar = parseInt(tar) + 3;
+
+    var object = objects[tar];
+    var Tp = math.matrix([[1, 0, 0, x], [0, 1, 0, y], [0, 0, 1, z], [0, 0, 0, 1]]);
+
+    for(var k in object.vertices){
+      var vertex = vertexMatrix(object.vertices[k]);
+      vertex = math.multiply(Tp, vertex);
+      vertex = vertex.valueOf().slice(0, 3);
+      object.vertices[k] = vertex;
+    }
+
+    viewing();
+  }
 
   var axisXV = [[0,0,0], [1,0,0]];
   var axisYV = [[0,0,0], [0,1,0]];
