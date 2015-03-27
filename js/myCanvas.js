@@ -73,7 +73,10 @@ function myCanvas(id) {
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.addEventListener('mouseout', mouseUp, false);
 
+  	// IE9, Chrome, Safari, Opera
     canvas.addEventListener("mousewheel", mouseWheeling, false);
+  	// Firefox
+  	canvas.addEventListener("DOMMouseScroll", mouseWheeling, false);
 
     dottedLineInit();
   }
