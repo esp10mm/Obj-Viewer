@@ -61,12 +61,8 @@ function space(canvas_id) {
     ctx.restore();
   }
 
-  function modeling() {
-
-  }
-
   function viewing() {
-    var Tp = viewMatrix(origin);
+    var Tp = viewMatrix(camera, origin);
 
     for(var i in objects){
       var object = objects[i];
@@ -80,7 +76,7 @@ function space(canvas_id) {
     projection();
   }
 
-  function viewMatrix(target) {
+  function viewMatrix(camera, target) {
     var cam = vertexMatrix(camera);
     var tar = vertexMatrix(target);
     var forward = math.subtract(cam, tar).valueOf().slice(0, 3);
@@ -170,7 +166,7 @@ function space(canvas_id) {
   }
 
   this.rotateCam = function(xd, yd) {
-    var vm = viewMatrix(origin);
+    var vm = viewMatrix(camera, origin);
     var iv = math.inv(vm);
 
     var r = math.norm(camera);
@@ -243,6 +239,36 @@ function space(canvas_id) {
     viewing();
   }
 
+  this.objectRotatePoint = function(tar, ax, az, ay, px, py, pz){
+    tar = parseInt(tar) + 3;
+
+    var refer = [px, py, pz];
+    var object = objects[tar];
+
+    ax = Math.PI*ax/180;
+    ay = Math.PI*ay/180;
+    az = Math.PI*az/180;
+
+    var transM = [[1,0,0,-1*refer[0]], [0,1,0,-1*refer[1]], [0,0,1,-1*refer[2]], [0,0,0,1]];
+    var transX = [[1,0,0,0],[0, Math.cos(ax), Math.sin(ax), 0], [0, -1*Math.sin(ax), Math.cos(ax), 0], [0,0,0,1]];
+    var transY = [[Math.cos(ay), 0, -Math.sin(ay),0],[0, 1, 0, 0], [Math.sin(ay), 0, Math.cos(ay), 0], [0,0,0,1]];
+    var transZ = [[Math.cos(az), Math.sin(az), 0 ,0],[-Math.sin(az), Math.cos(az), 0 ,0], [0, 0, 1, 0], [0,0,0,1]];
+    var transMI = math.inv(transM);
+
+    for(var k in object.vertices){
+      var vertex = vertexMatrix(object.vertices[k]);
+      vertex = math.multiply(transM, vertex);
+      vertex = math.multiply(transX, vertex);
+      vertex = math.multiply(transY, vertex);
+      vertex = math.multiply(transZ, vertex);
+      vertex = math.multiply(transMI, vertex);
+
+      object.vertices[k] = vertex.valueOf().slice(0, 3);
+    }
+
+    viewing();
+  }
+
   var axisXV = [[0,0,0], [1,0,0]];
   var axisYV = [[0,0,0], [0,1,0]];
   var axisZV = [[0,0,0], [0,0,1]];
@@ -252,7 +278,7 @@ function space(canvas_id) {
   var axisZF = [[1,2]];
 
   this.importObject(axisXV, axisXF, 'x-axis', '#DC3912');
-  this.importObject(axisYV, axisYF, 'y-axis', '#90C140');
-  this.importObject(axisZV, axisZF, 'z-axis', '#164C91');
+  this.importObject(axisYV, axisYF, 'y-axis', '#164C91');
+  this.importObject(axisZV, axisZF, 'z-axis', '#90C140');
 
 }

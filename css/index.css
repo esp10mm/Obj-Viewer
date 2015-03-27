@@ -103,3 +103,11 @@ body {
 .ui.tabular.menu .active.item  {
   color: #F2C61F;
 }
+
+.gray {
+  color: #8C8D8D!important;
+}
+
+.pc {
+  width:50px;
+}

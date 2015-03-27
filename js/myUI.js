@@ -43,7 +43,7 @@ function initUI() {
   })
 
   $('.dropdown').on('change', function(){
-    transTabClear('translation');
+    transTabClear('rotate');
     transButtonClick();
   })
 
@@ -79,11 +79,55 @@ function transTabInit() {
 
     var tar = $('.dropdown .value').val();
     if(tar.length > 0){
-      space.objectTranslation(tar, vx, vy, vz);
+      space.objectTranslation(tar, vx, vz, vy);
     }
 
     transTabClear('translation');
   })
+
+  $('.rotate.point.apply').on('click', function(){
+    var pax = $('.rotate.pax').val();
+    var pay = $('.rotate.pay').val();
+    var paz = $('.rotate.paz').val();
+
+    var pcx = $('.rotate.pcx').val();
+    var pcy = $('.rotate.pcy').val();
+    var pcz = $('.rotate.pcz').val();
+
+    if(!parseFloat(pax))
+      pax = 0;
+    else
+      pax = parseFloat(pax);
+    if(!parseFloat(pay))
+      pay = 0;
+    else
+      pay = parseFloat(pay);
+    if(!parseFloat(paz))
+      paz = 0;
+    else
+      paz = parseFloat(paz);
+
+    if(!parseFloat(pcx))
+      pcx = 0;
+    else
+      pcx = parseFloat(pcx);
+    if(!parseFloat(pcy))
+      pcy = 0;
+    else
+      pcy = parseFloat(pcy);
+    if(!parseFloat(pcz))
+      pcz = 0;
+    else
+      pcz = parseFloat(pcz);
+
+    var tar = $('.dropdown .value').val();
+    if(tar.length > 0){
+      space.objectRotatePoint(tar, pax, pay, paz, pcx, pcz, pcy);
+    }
+
+    transTabClear('rotate');
+  })
+
 }
 
 function transTabClear(tabname) {
