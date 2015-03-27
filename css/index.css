@@ -111,3 +111,11 @@ body {
 .pc {
   width:50px;
 }
+
+.inimport.segment {
+  padding:3px;
+}
+
+.inimport .header {
+  display:inline-block;
+}

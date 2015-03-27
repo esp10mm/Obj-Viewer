@@ -91,7 +91,12 @@ function objReader(){
       // Read in the image file as a binary string.
       reader.readAsText(evt.target.files[0], 'UTF-8');
     }
+  }
 
+  this.loadDirect = function(data){
+    parseObj(data, function(vertices, faces){
+      objLoadEnd(vertices, faces);
+    });
   }
 
   this.objLoadEnd = function(func) {

@@ -23,10 +23,10 @@ function initUI() {
   })
 
   $('.objects.remove.button').on('click', function(){
-    var index = $('.dropdown .value').val();
+    var index = $('.objectSelect.dropdown .value').val();
     var objects = space.removeObject(index);
 
-    $('.dropdown').dropdown('clear');
+    $('.objectSelect.dropdown').dropdown('clear');
     $('.objects.operate').hide();
 
     updateUI(objects);
@@ -42,19 +42,32 @@ function initUI() {
     transButtonClick();
   })
 
-  $('.dropdown').on('change', function(){
+  $('.objectSelect.dropdown').on('change', function(){
     transTabClear('translation');
     transButtonClick();
+  })
+
+  $('.sampleImport.dropdown').dropdown();
+
+  $('.import.sample.button').on('click', function(){
+    var filename =  $('.sampleImport.dropdown .value').val();
+    if(filename.length > 0){
+      $(this).addClass('loading');
+      $.get('data/'+filename, function(data){
+        objReader.loadDirect(data);
+        $('.import.sample.button').removeClass('loading');
+      })
+    }
   })
 
 }
 
 function transButtonClick() {
-  var objectText = $('.dropdown .text').text();
+  var objectText = $('.objectSelect.dropdown .text').text();
   var headerText = '<i class="tiny yellow wizard icon"></i>'+objectText;
   $('.selectedObj.header').html(headerText);
 
-  var objectIndex = $('.dropdown .value').val();
+  var objectIndex = $('.objectSelect.dropdown .value').val();
   $('.trans.panel').removeClass('disabled');
 }
 
@@ -78,7 +91,7 @@ function transTabInit() {
     else
       vz = parseFloat(vz);
 
-    var tar = $('.dropdown .value').val();
+    var tar = $('.objectSelect.dropdown .value').val();
     if(tar.length > 0){
       space.objectTranslation(tar, vx, vz, vy);
     }
@@ -122,7 +135,7 @@ function transTabInit() {
     else
       pcz = parseFloat(pcz);
 
-    var tar = $('.dropdown .value').val();
+    var tar = $('.objectSelect.dropdown .value').val();
     if(tar.length > 0){
       space.objectRotatePoint(tar, pax, pay, paz, pcx, pcz, pcy);
     }
@@ -149,7 +162,7 @@ function transTabInit() {
     else
       sz = parseFloat(sz);
 
-    var tar = $('.dropdown .value').val();
+    var tar = $('.objectSelect.dropdown .value').val();
     if(tar.length > 0){
       space.objectScale(tar, sx, sz, sy);
     }
@@ -191,7 +204,7 @@ function transTabInit() {
     else
       szy = parseFloat(szy);
 
-    var tar = $('.dropdown .value').val();
+    var tar = $('.objectSelect.dropdown .value').val();
     if(tar.length > 0){
       space.objectShear(tar, sxz, sxy, szx, szy, syx, syz);
     }
@@ -201,7 +214,7 @@ function transTabInit() {
 
   // Reflection Apply
   $('.reflection.apply').on('click',function(){
-    var tar = $('.dropdown .value').val();
+    var tar = $('.objectSelect.dropdown .value').val();
     if(tar.length > 0){
       if($(this).hasClass('xy'))
         space.objectReflect(tar, 'xz');
@@ -222,9 +235,9 @@ function transTabClear(tabname) {
   $('.item.'+tabname).addClass('active');
   $('.trans.menu .item').tab();
 
-  var tar = $('.dropdown .value').val();
+  var tar = $('.objectSelect.dropdown .value').val();
   if(tar.length>0){
-    var objectText = $('.dropdown .text').text();
+    var objectText = $('.objectSelect.dropdown .text').text();
     var headerText = '<i class="tiny yellow wizard icon"></i>'+objectText;
     $('.selectedObj.header').html(headerText);
   }
@@ -254,13 +267,13 @@ function updateUI(objects) {
     $('.objects.menu').append(dropContent);
   }
 
-  $('.dropdown').dropdown();
+  $('.objectSelect.dropdown').dropdown();
   if(objects.length > 0){
-    if($('.dropdown .value').val().length != 0){
+    if($('.objectSelect.dropdown .value').val().length != 0){
       $('.objects.operate').show();
     }
     else {
-      $('.dropdown').dropdown('set selected', 0);
+      $('.objectSelect.dropdown').dropdown('set selected', 0);
       $('.objects.operate').show();
     }
   }

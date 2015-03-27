@@ -39,19 +39,54 @@
         </div>
         <i class="panel red remove icon"></i>
         <br>
+
         <div class="ui tertiary inverted panelContent segment">
-          <h4 class="ui header">
-            <i class="tiny yellow folder open icon"></i>
-            From File
-          </h4>
-          <form class="ui form">
-            &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+          <div class="ui basic inimport segment">
+            <i class="big yellow folder open icon"></i>
+            <div class="ui inverted header">
+              From File
+            </div>
+            &nbsp; &nbsp;
             <label class="ui icon button" onclick="choosefile()">
                   <i(class="file icon")></i>
                   Open
             </label>
+          </div>
+
+          <form class="ui form">
             <input type="file" id="file" name="file" style="display:none"/>
           </form>
+
+          <div class="ui basic inimport segment">
+            <i class="big yellow database icon"></i>
+            <div class="ui inverted header">
+              From Our Samples
+            </div>
+            &nbsp; &nbsp;
+            <br>
+            <div class="ui selection sampleImport dropdown">
+              <input type="hidden" class="value">
+              <div class="default text">Select A Sample</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" data-value="Cube.obj">Cube</div>
+                <div class="item" data-value="Monkey.obj">Monkey</div>
+                <div class="item" data-value="Kenny.obj">Kenny</div>
+                <div class="item" data-value="Teapot.obj">Teapot</div>
+                <div class="item" data-value="Airboat.obj">Airboat</div>
+                <div class="item" data-value="Plane.obj">Plane</div>
+                <div class="item" data-value="ICO.obj">ICO</div>
+                <div class="item" data-value="LowICO.obj">LowICO</div>
+                <div class="item" data-value="Bowl.obj">Bowl</div>
+                <div class="item" data-value="Arrow.obj">Arrow</div>
+              </div>
+            </div>
+            <br><br>
+            <div class="ui import sample button">
+              Import
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -253,8 +288,6 @@
         </div>
       </div>
 
-      <br><br><br><br><br><br><br>
-
       <!-- Objects Panel -->
       <div class="ui objects panel secondary inverted compact segment">
         <div class="ui panelTitle basic segment">
@@ -267,7 +300,7 @@
         <div class="ui tertiary inverted panelContent segment">
 
           <i class="big yellow cube icon"></i>
-          <div class="ui selection dropdown">
+          <div class="ui selection objectSelect dropdown">
             <input type="hidden" class="value">
             <div class="default text">Select An Object</div>
             <i class="dropdown icon"></i>
