@@ -302,9 +302,31 @@ function space(canvas_id) {
       var vertex = math.multiply(Tp, vertexMatrix(object.vertices[k]));
       object.vertices[k] = vertex.valueOf().slice(0,3);
     }
-    
+
     viewing();
 
+  }
+
+  this.objectReflect = function(tar, type){
+    var Tp = [];
+
+    tar = parseInt(tar) + 3;
+
+    var object = objects[tar];
+
+    if(type == 'xy')
+      Tp = [[1,0,0,0],[0,1,0,0],[0,0,-1,0],[0,0,0,1]];
+    else if(type == 'yz')
+      Tp = [[-1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]];
+    else if(type == 'xz')
+        Tp = [[1,0,0,0],[0,-1,0,0],[0,0,1,0],[0,0,0,1]];
+
+    for(var k in object.vertices){
+      var vertex = math.multiply(Tp, vertexMatrix(object.vertices[k]));
+      object.vertices[k] = vertex.valueOf().slice(0,3);
+    }
+
+    viewing();
   }
 
   var axisXV = [[0,0,0], [1,0,0]];

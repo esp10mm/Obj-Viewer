@@ -43,7 +43,7 @@ function initUI() {
   })
 
   $('.dropdown').on('change', function(){
-    transTabClear('shear');
+    transTabClear('translation');
     transButtonClick();
   })
 
@@ -197,6 +197,21 @@ function transTabInit() {
     }
 
     transTabClear('shear');
+  })
+
+  // Reflection Apply
+  $('.reflection.apply').on('click',function(){
+    var tar = $('.dropdown .value').val();
+    if(tar.length > 0){
+      if($(this).hasClass('xy'))
+        space.objectReflect(tar, 'xz');
+      else if($(this).hasClass('yz'))
+        space.objectReflect(tar, 'yz');
+      if($(this).hasClass('xz'))
+        space.objectReflect(tar, 'xy');
+    }
+
+    transTabClear('reflection');
   })
 
 }
