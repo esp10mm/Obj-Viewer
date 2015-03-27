@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Obj Viewer</title>
+    <link rel="stylesheet" type="text/css" href="./css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+  </head>
+
+
+  <body>
+
+    <!-- <input type="file" id="files" name="file" /> -->
+    <!-- <div id="progress_bar"><div class="percent">0%</div></div> -->
+
+
+    <!-- Main Segment -->
+    <div class="ui main basic segment">
+      <!-- Manu Bar -->
+      <div class="ui main menu">
+        <a class="file item" onclick="activeItem('file')">
+          <i class="sign in icon"></i> Import
+        </a>
+        <a class="item" onclick="activeItem('objects')">
+          <i class="cubes icon"></i> Objects
+        </a>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas wrapper">
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <!-- Import Panel -->
+      <div class="ui file panel secondary inverted compact segment">
+        <div class="ui panelTitle basic segment">
+          <div class="ui small yellow header">
+            Import
+          </div>
+        </div>
+        <i class="panel red remove icon"></i>
+        <br>
+
+        <div class="ui tertiary inverted panelContent segment">
+          <div class="ui basic inimport segment">
+            <i class="big yellow folder open icon"></i>
+            <div class="ui inverted header">
+              From File
+            </div>
+            &nbsp; &nbsp;
+            <label class="ui icon button" onclick="choosefile()">
+                  <i(class="file icon")></i>
+                  Open
+            </label>
+          </div>
+
+          <form class="ui form">
+            <input type="file" id="file" name="file" style="display:none"/>
+          </form>
+
+          <div class="ui basic inimport segment">
+            <i class="big yellow database icon"></i>
+            <div class="ui inverted header">
+              From Our Samples
+            </div>
+            &nbsp; &nbsp;
+            <br>
+            <div class="ui selection sampleImport dropdown">
+              <input type="hidden" class="value">
+              <div class="default text">Select A Sample</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" data-value="Cube.obj">Cube</div>
+                <div class="item" data-value="Monkey.obj">Monkey</div>
+                <div class="item" data-value="Kenny.obj">Kenny</div>
+                <div class="item" data-value="Teapot.obj">Teapot</div>
+                <div class="item" data-value="Airboat.obj">Airboat</div>
+                <div class="item" data-value="Plane.obj">Plane</div>
+                <div class="item" data-value="ICO.obj">ICO</div>
+                <div class="item" data-value="LowICO.obj">LowICO</div>
+                <div class="item" data-value="Bowl.obj">Bowl</div>
+                <div class="item" data-value="Arrow.obj">Arrow</div>
+              </div>
+            </div>
+            <br><br>
+            <div class="ui import sample button">
+              Import
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Transformation Panel -->
+      <div class="ui trans panel secondary inverted compact disabled segment">
+        <div class="ui panelTitle basic segment">
+          <div class="ui small yellow header">
+            Transformation
+          </div>
+        </div>
+        <i class="panel red remove icon"></i>
+        <br>
+        <div class="ui tertiary inverted panelContent segment">
+          <h3 class="ui selectedObj header">
+            <i class="tiny yellow wizard icon"></i>
+            No Object Selected
+          </h3>
+
+          <!-- Transformation Tab Menu -->
+          <div class="ui top attached tabular trans menu">
+              <div class="translation trans item" data-tab="Translation">Translation</div>
+              <div class="rotate trans item" data-tab="Rotate">Rotate</div>
+              <div class="scale trans item" data-tab="Scale">Scale</div>
+              <div class="shear trans item" data-tab="Shear">Shear</div>
+              <div class="reflection trans item" data-tab="Reflection">Reflection</div>
+          </div>
+
+          <!-- Translation Tab -->
+          <div class="ui bottom attached translation tab segment" data-tab="Translation">
+            <h3 class="ui red header">X &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation x">
+              </div>
+            </h3>
+            <h3 class="ui green header">Y &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation y">
+              </div>
+            </h3>
+            <h3 class="ui blue header">Z &nbsp;:&nbsp;
+              <div class="ui input">
+                <input type="text" placeholder="0" class="translation z">
+              </div>
+            </h3>
+            <div class="ui teal translation apply button">
+              Apply
+            </div>
+          </div>
+
+          <!-- Rotate Tab -->
+          <div class="ui bottom attached rotate tab segment" data-tab="Rotate">
+            <!-- <h2 class="ui gray header">Rotate About Axis &nbsp;:&nbsp;</h2>
+            <h3 class="ui red header">X &nbsp;:&nbsp;
+              <div class="ui input">
+                  <input type="text" placeholder="0" class="rotate ax">
+              </div>
+            </h3>
+            <h3 class="ui blue header">Y &nbsp;:&nbsp;
+              <div class="ui input">
+                  <input type="text" placeholder="0" class="rotate ay">
+              </div>
+            </h3>
+            <h3 class="ui green header">Z &nbsp;:&nbsp;
+              <div class="ui input">
+                  <input type="text" placeholder="0" class="rotate az">
+              </div>&nbsp;
+              <div class="ui teal rotate axis apply button">
+                Apply
+              </div>
+            </h3> -->
+            <h2 class="ui gray header">Rotate About Point &nbsp;:&nbsp;</h2>
+            <h3 class="ui gray header">Point Coordinate&nbsp;:&nbsp;(&nbsp;
+              <div class="ui pc input">
+                  <input type="text" placeholder="0" class="rotate pcx">
+              </div>,&nbsp;
+              <div class="ui pc input">
+                  <input type="text" placeholder="0" class="rotate pcy">
+              </div>,&nbsp;
+              <div class="ui pc input">
+                  <input type="text" placeholder="0" class="rotate pcz">
+              </div>&nbsp;)
+            </h3>
+            <h3 class="ui gray header">Angle&nbsp;:&nbsp;</h3>
+            <h3 class="ui red header">X
+              <div class="ui pa input">
+                  <input type="text" placeholder="0" class="rotate pax">
+              </div>
+            </h3>
+            <h3 class="ui green header">Y
+              <div class="ui pa input">
+                  <input type="text" placeholder="0" class="rotate pay">
+              </div>
+            </h3>
+            <h3 class="ui blue header">Z
+              <div class="ui pa input">
+                  <input type="text" placeholder="0" class="rotate paz">
+              </div>
+              <div class="ui teal rotate point apply button">
+                Apply
+              </div>
+            </h3>
+
+          </div>
+
+          <!-- Scale Tab -->
+          <div class="ui bottom attached scale tab segment" data-tab="Scale">
+            <h2 class="ui gray header">Ratio&nbsp;:&nbsp;</h2>
+            <h3 class="ui red header">X
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sx">
+              </div>
+            </h3>
+            <h3 class="ui green header">Y
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sy">
+              </div>
+            </h3>
+            <h3 class="ui blue header">Z
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sz">
+              </div>
+              <div class="ui teal scale apply button">
+                Apply
+              </div>
+            </h3>
+          </div>
+
+          <!-- Shear Tab -->
+          <div class="ui bottom attached shear tab segment" data-tab="Shear">
+            <h2 class="ui gray header">Angle&nbsp;:&nbsp;</h2>
+            <h3 class="ui red header">On&nbsp;X&nbsp;:
+              <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear sxy">
+                </div>
+              </div>
+              <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear sxz">
+                </div>
+              </div>
+            </h3>
+
+            <h3 class="ui green header">On&nbsp;Y&nbsp;:
+              <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear syx">
+                </div>
+              </div>
+              <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear syz">
+                </div>
+              </div>
+            </h3>
+
+            <h3 class="ui green header">On&nbsp;Z&nbsp;:
+              <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear szx">
+                </div>
+              </div>
+              <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="ui input">
+                    <input type="text" placeholder="90" class="shear szy">
+                </div>
+              </div>
+              <div class="ui teal shear apply button">
+                Apply
+              </div>
+            </h3>
+
+          </div>
+
+          <!-- Reflection Tab -->
+          <div class="ui bottom attached reflection tab segment" data-tab="Reflection">
+            <h2 class="ui gray header">Face&nbsp;:&nbsp;</h2>
+
+            <h3 class="ui red header">To&nbsp;XY&nbsp;:&nbsp;
+              <div class="ui teal reflection xy apply button">
+                Apply
+              </div>
+            </h3>
+
+            <h3 class="ui green header">To&nbsp;YZ&nbsp;:&nbsp;
+              <div class="ui teal reflection yz apply button">
+                Apply
+              </div>
+            </h3>
+
+            <h3 class="ui blue header">To&nbsp;XZ&nbsp;:&nbsp;
+              <div class="ui teal reflection xz apply button">
+                Apply
+              </div>
+            </h3>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Objects Panel -->
+      <div class="ui objects panel secondary inverted compact segment">
+        <div class="ui panelTitle basic segment">
+          <div class="ui small yellow header">
+            Objects
+          </div>
+        </div>
+        <i class="panel red remove icon"></i>
+        <br>
+        <div class="ui tertiary inverted panelContent segment">
+
+          <i class="big yellow cube icon"></i>
+          <div class="ui selection objectSelect dropdown">
+            <input type="hidden" class="value">
+            <div class="default text">Select An Object</div>
+            <i class="dropdown icon"></i>
+            <div class="objects menu"></div>
+          </div>
+
+          <div class="ui objects operate basic segment">
+            <div class="ui red objects remove button">
+              <i class="trash outline icon"></i>
+              Remove
+            </div>
+            <br><br>
+            <div class="ui green objects trans button">
+              <i class="wizard icon"></i>
+              Transformation
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="./js/jquery-2.1.3.min.js" charset="utf-8"></script>
+    <script src="./js/math.min.js" charset="utf-8"></script>
+    <script src="./js/semantic.min.js" charset="utf-8"></script>
+
+    <script src="./js/myobjReader.js" charset="utf-8"></script>
+    <script src="./js/my3d.js" charset="utf-8"></script>
+    <script src="./js/myUI.js" charset="utf-8"></script>
+    <script src="./js/myCanvas.js" charset="utf-8"></script>
+
+    <script charset="utf-8">
+      var objReader = new objReader();
+      var canvas = new myCanvas('canvas');
+      var space = new space('canvas');
+
+      canvas.setDragListener(function(xd, yd){
+        space.rotateCam(xd, yd);
+      })
+
+      canvas.setWheelListener(function(dir){
+        space.moveCam(dir/100);
+      })
+
+      var objects = []
+
+      objReader.objLoadEnd(function(vertices, faces){
+        space.importObject(vertices, faces);
+        objects = space.getObjects();
+        updateUI(objects);
+        document.getElementById('file').value='';
+      })
+
+      document.getElementById('file').addEventListener('change', objReader.handleFileSelect, false);
+
+    </script>
+  </body>
+</html>
