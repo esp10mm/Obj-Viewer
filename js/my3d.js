@@ -284,6 +284,29 @@ function space(canvas_id) {
     viewing();
   }
 
+  this.objectShear = function(tar, sxy, sxz, syx, syz, szx, szy){
+    tar = parseInt(tar) + 3;
+
+    var object = objects[tar];
+
+    sxy = 1/Math.tan(Math.PI*sxy/180);
+    syx = 1/Math.tan(Math.PI*syx/180);
+    sxz = 1/Math.tan(Math.PI*sxz/180);
+    szx = 1/Math.tan(Math.PI*szx/180);
+    syz = 1/Math.tan(Math.PI*syz/180);
+    szy = 1/Math.tan(Math.PI*szy/180);
+
+    var Tp = [[1,sxy,sxz,0],[syx,1,syz,0],[szx,szy,1,0],[0,0,0,1]];
+
+    for(var k in object.vertices){
+      var vertex = math.multiply(Tp, vertexMatrix(object.vertices[k]));
+      object.vertices[k] = vertex.valueOf().slice(0,3);
+    }
+    
+    viewing();
+
+  }
+
   var axisXV = [[0,0,0], [1,0,0]];
   var axisYV = [[0,0,0], [0,1,0]];
   var axisZV = [[0,0,0], [0,0,1]];

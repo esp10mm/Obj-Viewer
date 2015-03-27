@@ -43,7 +43,7 @@ function initUI() {
   })
 
   $('.dropdown').on('change', function(){
-    transTabClear('scale');
+    transTabClear('shear');
     transButtonClick();
   })
 
@@ -157,6 +157,48 @@ function transTabInit() {
     transTabClear('scale');
   })
 
+  // Shear Apply
+  $('.shear.apply').on('click', function(){
+    var sxy = $('.shear.sxy').val();
+    var sxz = $('.shear.sxz').val();
+    var syx = $('.shear.syx').val();
+    var syz = $('.shear.syz').val();
+    var szx = $('.shear.szx').val();
+    var szy = $('.shear.szy').val();
+
+    if(!parseFloat(sxy))
+      sxy = 90;
+    else
+      sxy = parseFloat(sxy);
+    if(!parseFloat(syx))
+      syx = 90;
+    else
+      syx = parseFloat(syx);
+    if(!parseFloat(szx))
+      szx = 90;
+    else
+      szx = parseFloat(szx);
+    if(!parseFloat(sxz))
+      sxz = 90;
+    else
+      sxz = parseFloat(sxz);
+    if(!parseFloat(syz))
+      syz = 90;
+    else
+      syz = parseFloat(syz);
+    if(!parseFloat(szy))
+      szy = 90;
+    else
+      szy = parseFloat(szy);
+
+    var tar = $('.dropdown .value').val();
+    if(tar.length > 0){
+      space.objectShear(tar, sxz, sxy, szx, szy, syx, syz);
+    }
+
+    transTabClear('shear');
+  })
+
 }
 
 function transTabClear(tabname) {
@@ -164,6 +206,14 @@ function transTabClear(tabname) {
   $('.tab.'+tabname).addClass('active');
   $('.item.'+tabname).addClass('active');
   $('.trans.menu .item').tab();
+
+  var tar = $('.dropdown .value').val();
+  if(tar.length>0){
+    var objectText = $('.dropdown .text').text();
+    var headerText = '<i class="tiny yellow wizard icon"></i>'+objectText;
+    $('.selectedObj.header').html(headerText);
+  }
+
   transTabInit();
 }
 
