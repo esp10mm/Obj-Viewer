@@ -70,36 +70,38 @@
             No Object Selected
           </h3>
 
+          <!-- Transformation Tab Menu -->
           <div class="ui top attached tabular trans menu">
               <div class="translation trans item" data-tab="Translation">Translation</div>
               <div class="rotate trans item" data-tab="Rotate">Rotate</div>
-              <div class="trans item" data-tab="Scale">Scale</div>
-              <div class="trans item" data-tab="Shear">Shear</div>
-              <div class="trans item" data-tab="Reflection">Reflection</div>
+              <div class="scale trans item" data-tab="Scale">Scale</div>
+              <div class="shear trans item" data-tab="Shear">Shear</div>
+              <div class="reflection trans item" data-tab="Reflection">Reflection</div>
           </div>
 
           <!-- Translation Tab -->
           <div class="ui bottom attached translation tab segment" data-tab="Translation">
-            <h2 class="ui red header">X &nbsp;:&nbsp;
+            <h3 class="ui red header">X &nbsp;:&nbsp;
               <div class="ui input">
                 <input type="text" placeholder="0" class="translation x">
               </div>
-            </h2>
-            <h2 class="ui green header">Y &nbsp;:&nbsp;
+            </h3>
+            <h3 class="ui green header">Y &nbsp;:&nbsp;
               <div class="ui input">
                 <input type="text" placeholder="0" class="translation y">
               </div>
-            </h2>
-            <h2 class="ui blue header">Z &nbsp;:&nbsp;
+            </h3>
+            <h3 class="ui blue header">Z &nbsp;:&nbsp;
               <div class="ui input">
                 <input type="text" placeholder="0" class="translation z">
               </div>
-            </h2>
+            </h3>
             <div class="ui teal translation apply button">
               Apply
             </div>
           </div>
 
+          <!-- Rotate Tab -->
           <div class="ui bottom attached rotate tab segment" data-tab="Rotate">
             <!-- <h2 class="ui gray header">Rotate About Axis &nbsp;:&nbsp;</h2>
             <h3 class="ui red header">X &nbsp;:&nbsp;
@@ -154,19 +156,36 @@
 
           </div>
 
-          <div class="ui bottom attached tab segment" data-tab="Scale">
-              <p></p>
-              <p></p>
+          <!-- Scale Tab -->
+          <div class="ui bottom attached scale tab segment" data-tab="Scale">
+            <h2 class="ui gray header">Ratio&nbsp;:&nbsp;</h2>
+            <h3 class="ui red header">X
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sx">
+              </div>
+            </h3>
+            <h3 class="ui green header">Y
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sy">
+              </div>
+            </h3>
+            <h3 class="ui blue header">Z
+              <div class="ui input">
+                  <input type="text" placeholder="1" class="scale sz">
+              </div>
+              <div class="ui teal scale apply button">
+                Apply
+              </div>
           </div>
 
-          <div class="ui bottom attached tab segment" data-tab="Shear">
-              <p></p>
-              <p></p>
+          <!-- Shear Tab -->
+          <div class="ui bottom attached shear tab segment" data-tab="Shear">
+
           </div>
 
-          <div class="ui bottom attached tab segment" data-tab="Reflection">
-              <p></p>
-              <p></p>
+          <!-- Reflection Tab -->
+          <div class="ui bottom attached reflection tab segment" data-tab="Reflection">
+
           </div>
 
         </div>

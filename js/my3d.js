@@ -269,6 +269,21 @@ function space(canvas_id) {
     viewing();
   }
 
+  this.objectScale = function(tar, sx, sy, sz){
+    tar = parseInt(tar) + 3;
+
+    var object = objects[tar];
+
+    var Tp = [[sx,0,0,0], [0,sy,0,0], [0,0,sz,0], [0,0,0,1]];
+
+    for(var k in object.vertices){
+      var vertex = math.multiply(Tp, vertexMatrix(object.vertices[k]));
+      object.vertices[k] = vertex.valueOf().slice(0,3);
+    }
+
+    viewing();
+  }
+
   var axisXV = [[0,0,0], [1,0,0]];
   var axisYV = [[0,0,0], [0,1,0]];
   var axisZV = [[0,0,0], [0,0,1]];
