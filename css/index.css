@@ -88,6 +88,10 @@ body {
   margin: 4px;
 }
 
+.panel.segment {
+  overflow-y:scroll;
+}
+
 .objects.operate {
   display:none;
 }
