@@ -116,23 +116,25 @@
 
           <!-- Translation Tab -->
           <div class="ui bottom attached translation tab segment" data-tab="Translation">
-            <h3 class="ui red header">X &nbsp;:&nbsp;
-              <div class="ui input">
-                <input type="text" placeholder="0" class="translation x">
+            <div class="translation input">
+              <h3 class="ui red header">X &nbsp;:&nbsp;
+                <div class="ui fifty input">
+                  <input type="text" placeholder="0" class="translation x">
+                </div>
+              </h3>&nbsp;&nbsp;
+              <h3 class="ui green header">Y &nbsp;:&nbsp;
+                <div class="ui fifty input">
+                  <input type="text" placeholder="0" class="translation y">
+                </div>
+              </h3>&nbsp;&nbsp;
+              <h3 class="ui blue header">Z &nbsp;:&nbsp;
+                <div class="ui fifty input">
+                  <input type="text" placeholder="0" class="translation z">
+                </div>
+              </h3>&nbsp;&nbsp;
+              <div class="ui teal translation apply button">
+                Apply
               </div>
-            </h3>
-            <h3 class="ui green header">Y &nbsp;:&nbsp;
-              <div class="ui input">
-                <input type="text" placeholder="0" class="translation y">
-              </div>
-            </h3>
-            <h3 class="ui blue header">Z &nbsp;:&nbsp;
-              <div class="ui input">
-                <input type="text" placeholder="0" class="translation z">
-              </div>
-            </h3>
-            <div class="ui teal translation apply button">
-              Apply
             </div>
           </div>
 
@@ -170,92 +172,105 @@
               </div>&nbsp;)
             </h3>
             <h3 class="ui gray header">Angle&nbsp;:&nbsp;</h3>
-            <h3 class="ui red header">X
-              <div class="ui pa input">
-                  <input type="text" placeholder="0" class="rotate pax">
-              </div>
-            </h3>
-            <h3 class="ui green header">Y
-              <div class="ui pa input">
-                  <input type="text" placeholder="0" class="rotate pay">
-              </div>
-            </h3>
-            <h3 class="ui blue header">Z
-              <div class="ui pa input">
-                  <input type="text" placeholder="0" class="rotate paz">
-              </div>
-              <div class="ui teal rotate point apply button">
-                Apply
-              </div>
-            </h3>
+
+            <div class="rotate angle input">
+              <h3 class="ui red header">X&nbsp;&nbsp;:
+                <div class="ui pa fifty input">
+                    <input type="text" placeholder="0" class="rotate pax">
+                </div>
+              </h3>&nbsp;&nbsp;
+              <h3 class="ui green header">Y&nbsp;&nbsp;:
+                <div class="ui pa fifty input">
+                    <input type="text" placeholder="0" class="rotate pay">
+                </div>
+              </h3>&nbsp;&nbsp;
+              <h3 class="ui blue header">Z&nbsp;&nbsp;:
+                <div class="ui pa fifty input">
+                    <input type="text" placeholder="0" class="rotate paz">
+                </div>&nbsp;&nbsp;
+                <div class="ui teal rotate point apply button">
+                  Apply
+                </div>
+              </h3>
+            </div>
 
           </div>
 
           <!-- Scale Tab -->
           <div class="ui bottom attached scale tab segment" data-tab="Scale">
             <h2 class="ui gray header">Ratio&nbsp;:&nbsp;</h2>
-            <h3 class="ui red header">X
-              <div class="ui input">
-                  <input type="text" placeholder="1" class="scale sx">
-              </div>
-            </h3>
-            <h3 class="ui green header">Y
-              <div class="ui input">
-                  <input type="text" placeholder="1" class="scale sy">
-              </div>
-            </h3>
-            <h3 class="ui blue header">Z
-              <div class="ui input">
-                  <input type="text" placeholder="1" class="scale sz">
-              </div>
-              <div class="ui teal scale apply button">
-                Apply
-              </div>
-            </h3>
+
+            <div class="scale ratio input">
+              <h3 class="ui red header">X
+                <div class="ui fifty input">
+                    <input type="text" placeholder="1" class="scale sx">
+                </div>
+              </h3>
+              <h3 class="ui green header">Y
+                <div class="ui fifty input">
+                    <input type="text" placeholder="1" class="scale sy">
+                </div>
+              </h3>
+              <h3 class="ui blue header">Z
+                <div class="ui fifty input">
+                    <input type="text" placeholder="1" class="scale sz">
+                </div>
+                <div class="ui teal scale apply button">
+                  Apply
+                </div>
+              </h3>
+            </div>
+
           </div>
 
           <!-- Shear Tab -->
           <div class="ui bottom attached shear tab segment" data-tab="Shear">
             <h2 class="ui gray header">Angle&nbsp;:&nbsp;</h2>
             <h3 class="ui red header">On&nbsp;X&nbsp;:
-              <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear sxy">
+              <div class="shear onx angle">
+                <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear sxy">
+                  </div>
                 </div>
-              </div>
-              <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear sxz">
+                <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear sxz">
+                  </div>
                 </div>
               </div>
             </h3>
 
             <h3 class="ui green header">On&nbsp;Y&nbsp;:
-              <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear syx">
+              <div class="shear ony angle">
+                <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear syx">
+                  </div>
                 </div>
-              </div>
-              <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear syz">
+                <div class="ui blue small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Z&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear syz">
+                  </div>
                 </div>
               </div>
             </h3>
 
             <h3 class="ui green header">On&nbsp;Z&nbsp;:
-              <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear szx">
+              <div class="shear onz angle">
+                <div class="ui red small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;X&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear szx">
+                  </div>
                 </div>
-              </div>
-              <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="ui input">
-                    <input type="text" placeholder="90" class="shear szy">
+                <div class="ui green small header">&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;Y&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div class="ui fifty input">
+                      <input type="text" placeholder="90" class="shear szy">
+                  </div>
                 </div>
-              </div>
-              <div class="ui teal shear apply button">
-                Apply
+                <div class="ui teal shear apply button">
+                  Apply
+                </div>
               </div>
             </h3>
 

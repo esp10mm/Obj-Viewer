@@ -116,10 +116,33 @@ body {
   width:50px;
 }
 
+.fifty {
+  width:50px;
+}
+
 .inimport.segment {
   padding:3px;
 }
 
 .inimport .header {
   display:inline-block;
+}
+
+.translation.input .header,
+.rotate.angle.input .header,
+.scale.ratio.input .header,
+.shear.onx.angle .header,
+.shear.ony.angle .header,
+.shear.onz.angle .header{
+  display:inline-block;
+}
+
+
+.shear.segment .header{
+  margin:5px;
+}
+
+.shear.segment .gray.header{
+  margin-bottom:14px;
+  margin-top:0px;
 }
