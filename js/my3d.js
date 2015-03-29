@@ -8,6 +8,8 @@ function space(canvas_id) {
   // var camera = [0, 3, 0];
   var upv = [0, -1, 0];
 
+  var perspective = true;
+
   var fov = 60;
   var aspect = 1;
   var near = 0.5;
@@ -17,6 +19,8 @@ function space(canvas_id) {
   var w = canvas.width;
   var h = canvas.height;
   var ctx = canvas.getContext('2d');
+
+  var viewScale = 100;
 
   function draw() {
     ctx.clearRect(0 , 0 , w, h);
@@ -41,8 +45,8 @@ function space(canvas_id) {
           else
             next = object.onscreen[faces[i][j+1] - 1];
 
-          ctx.moveTo(vertex[0]/vertex[3] * 100, vertex[1]/vertex[3] * 100 *-1 );
-          ctx.lineTo(next[0]/next[3]* 100, next[1]/next[3] * 100 *-1 );
+          ctx.moveTo(vertex[0]/vertex[3] * viewScale, vertex[1]/vertex[3] * viewScale *-1 );
+          ctx.lineTo(next[0]/next[3]* viewScale, next[1]/next[3] * viewScale *-1 );
 
         }
 
@@ -73,7 +77,19 @@ function space(canvas_id) {
       }
     }
 
-    projection();
+    if(perspective){
+      projection();
+    }
+    else{
+      for(var i in objects){
+        var object = objects[i];
+        for(var i=0; i<object.eyeCoor.length; i++) {
+          object.onscreen[i] = object.eyeCoor[i]
+        }
+      }
+      draw();
+    }
+
   }
 
   function viewMatrix(camera, target) {
@@ -197,19 +213,21 @@ function space(canvas_id) {
   }
 
   this.moveCam = function(dir) {
-    dir = dir * -1;
-    var u = matrixNorm(camera);
-    var backup = camera;
+    if(perspective){
+      dir = dir * -1;
+      var u = matrixNorm(camera);
+      var backup = camera;
 
-    u = math.multiply(u, Math.abs(dir));
-    if(dir>0)
-      camera = math.add(u, camera);
-    else
-      camera = math.subtract(camera, u);
+      u = math.multiply(u, Math.abs(dir));
+      if(dir>0)
+        camera = math.add(u, camera);
+      else
+        camera = math.subtract(camera, u);
 
-    if(!math.deepEqual(matrixNorm(camera), matrixNorm(backup)))
-      camera = backup;
-    viewing();
+      if(!math.deepEqual(matrixNorm(camera), matrixNorm(backup)))
+        camera = backup;
+      viewing();
+    }
   }
 
   this.getObjects = function() {
@@ -327,6 +345,16 @@ function space(canvas_id) {
     }
 
     viewing();
+  }
+
+  this.setPerspective = function(set) {
+    perspective = set;
+    viewing();
+  }
+
+  this.setViewScale = function(value) {
+    viewScale = value;
+    draw();
   }
 
   var axisXV = [[0,0,0], [1,0,0]];

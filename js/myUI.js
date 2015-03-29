@@ -4,7 +4,18 @@ initUI();
 
 function initUI() {
 
+  $('.objects.panel.segment').offset({top:270,left:0});
+  $('.objects.panel.segment').css('visibility','visible');
+
+
+  $('.trans.panel.segment').offset({top:36,left:$('.main.segment').width() - 485});
+  $('.trans.panel.segment').css('visibility','visible');
   panelInit();
+
+  $('.ui.modal').modal();
+  settingInit();
+
+  messageInit();
 
   $('.objects.remove.button').on('click', function(){
     var index = $('.objectSelect.dropdown .value').val();
@@ -72,7 +83,6 @@ function panelInit(select) {
   //   return $(this).parent().height();
   // })
 }
-
 
 function transButtonClick() {
   var objectText = $('.objectSelect.dropdown .text').text();
@@ -295,4 +305,33 @@ function updateUI(objects) {
     $('.selectedObj').html('<i class="tiny yellow wizard icon"></i>No Object Selected');
   }
 
+}
+
+function setting() {
+  $('.ui.modal').modal('show');
+}
+
+function settingInit() {
+  $('.setting.menu .item').tab();
+  $('.ui.perspective.checkbox').checkbox({
+    onChange: function(){
+      space.setPerspective($('.ui.perspective.checkbox').checkbox('is checked'));
+    }
+  });
+
+  $('.scale.view.value').on('input', function(){
+    space.setViewScale(parseFloat($('.scale.view.value').val()));
+  })
+}
+
+function messageInit(){
+  // console.log($('.message').)
+  var h = $('.main.segment').height()-120;
+  // var w = $('.main.segment').width() - 520;
+  $('.message').css({top:h});
+  $('.message').css('visibility','visible');
+  // console.log('no')
+  $('.message .close.icon').on('click', function(){
+    $('.message').transition('fade');
+  })
 }

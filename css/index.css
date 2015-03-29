@@ -61,14 +61,23 @@ body {
 }
 
 .ui.panel.segment {
-  z-index:6;
+  position: absolute!important;
+  z-index:2;
   padding:1px;
   margin:0px;
-  float:left;
 }
 
-.ui.trans.segment {
+.file.panel.segment {
+  z-index:6;
+}
+
+.ui.trans.panel.segment {
+  visibility:hidden;
   float:right;
+}
+
+.ui.objects.panel {
+  visibility:hidden;
 }
 
 .ui.panelTitle.segment {
@@ -88,23 +97,19 @@ body {
   margin: 4px;
 }
 
-.panel.segment {
-  overflow-y:scroll;
-}
-
 .objects.operate {
   display:none;
 }
 
-.ui.tabular.menu .item  {
+.ui.trans.tabular.menu .item  {
   color: #FFFFFF;
 }
 
-.ui.tabular.menu .item:hover  {
+.ui.trans.tabular.menu .item:hover  {
   color: #FFFFFF;
 }
 
-.ui.tabular.menu .active.item  {
+.ui.trans.tabular.menu .active.item  {
   color: #F2C61F;
 }
 
@@ -122,10 +127,14 @@ body {
 
 .inimport.segment {
   padding:3px;
+  margin-top:5px;
+  margin-bottom:5px;
 }
 
 .inimport .header {
   display:inline-block;
+  margin-top:5px;
+  margin-bottom:12px;
 }
 
 .translation.input .header,
@@ -145,4 +154,14 @@ body {
 .shear.segment .gray.header{
   margin-bottom:14px;
   margin-top:0px;
+}
+
+.message {
+  position: absolute!important;
+  width:500px!important;
+  visibility:hidden;
+  z-index:10;
+  right: 1%;
+  top: 95%;
+  /*float:right2;*/
 }
