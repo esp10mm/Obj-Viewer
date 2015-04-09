@@ -22,13 +22,60 @@ function space(canvas_id) {
 
   var viewScale = 100;
 
+
+  function computeColor() {
+    for(var k in objects){
+      var object = objects[k];
+
+      for(var i = 0; i < object.faces.length; i++) {
+        if(object.faces[i].length > 2){
+          var vertex1 = object.onscreen[object.faces[i][0]-1].slice(0, 3);
+          var vertex2 = object.onscreen[object.faces[i][1]-1].slice(0, 3);
+          var vertex3 = object.onscreen[object.faces[i][2]-1].slice(0, 3);
+
+          var v1 = math.subtract(vertex1, vertex2);
+          var v2 = math.subtract(vertex1, vertex3);
+
+          var len = math.norm(math.cross(v1, v2));
+          var n = math.divide(math.cross(v1, v2), len).valueOf();
+
+          object.faces[i].color = Math.abs(n[2])*200;
+
+        }
+      }
+
+    }
+  }
+
   function draw() {
+    computeColor();
+
     ctx.clearRect(0 , 0 , w, h);
     ctx.save();
-    ctx.translate(w/2, h/2);``
+    ctx.translate(w/2, h/2);
 
     for(var k in objects){
       var object = objects[k];
+      var faces = object.faces;
+
+      for(var i = 0; i < object.faces.length; i++) {
+        var dis = 0;
+        for(var j = 0; j < object.faces[i].length; j++) {
+          var vertex = object.onscreen[faces[i][j] - 1];
+          dis += vertex[3];
+        }
+        object.faces[i].dis = dis/object.faces[i].length;
+      }
+
+      object.faces.sort(function(a,b) {
+        if (a.dis < b.dis)
+           return -1;
+        if (a.dis > b.dis)
+          return 1;
+        return 0;
+      });
+
+      // console.log(object.faces);
 
       for(var i = 0; i < object.faces.length; i++) {
 
@@ -45,7 +92,8 @@ function space(canvas_id) {
           else
             next = object.onscreen[faces[i][j+1] - 1];
 
-          ctx.moveTo(vertex[0]/vertex[3] * viewScale, vertex[1]/vertex[3] * viewScale *-1 );
+          if(j==0)
+            ctx.moveTo(vertex[0]/vertex[3] * viewScale, vertex[1]/vertex[3] * viewScale *-1 );
           ctx.lineTo(next[0]/next[3]* viewScale, next[1]/next[3] * viewScale *-1 );
 
         }
@@ -56,11 +104,18 @@ function space(canvas_id) {
           ctx.strokeStyle = '#E8E8E8';
 
         ctx.closePath();
+
         ctx.stroke();
+
+        if(object.faces[i].color != undefined){
+          var c = Math.round(object.faces[i].color);
+          ctx.fillStyle = 'rgb('+c+','+c+','+c+')';
+        }
+
+        ctx.fill();
 
       }
     }
-
 
     ctx.restore();
   }
